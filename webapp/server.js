@@ -15,7 +15,7 @@ const reqCounter = new prom.Counter({
   help: 'total number of HTTP requests served',
 });
 
-const metrics = (_, res, next) => {
+const metrics = (_req, _res, next) => {
   reqCounter.inc()
   next()
 }
@@ -25,7 +25,7 @@ const app = express()
 
 app.use(metrics)
 
-app.get('/metrics', async (req, res) => {
+app.get('/metrics', async (_req, res) => {
   res.setHeader('Content-Type', prom.register.contentType)
 
   const metrics = await prom.register.metrics()
@@ -33,13 +33,35 @@ app.get('/metrics', async (req, res) => {
 })
 
 // Handlers
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   const time = new Date().toISOString()
   console.log(`[${time}] handling request from ${APP_NAME}`)
 
   setTimeout(() => {
-    res.status(200).send(`hello from ${APP_NAME}`)
+    res.status(200).send(`${APP_NAME}`)
   }, DELAY)
+})
+
+app.get('/hello', (_req, res) => {
+  res.status(200).send(`hello from ${APP_NAME}`)
+})
+
+app.get('/hello/*', (_req, res) => {
+  res.status(200).send(`hello from ${APP_NAME}`)
+})
+
+app.get('/not-found', (_req, res) => {
+  const errorPage = `<html>Er.. Congratulations, you broke the Internet</html>`
+
+  res.status(200).send(errorPage)
+})
+
+app.get('/secret', (_req, res) => {
+  res.status(200).send("It's strictly confidential!")
+})
+
+app.get('/health', (_req, res) => {
+  res.status(200).send("I'm OK")
 })
 
 app.listen(PORT, () => {

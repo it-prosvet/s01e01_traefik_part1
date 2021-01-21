@@ -1,0 +1,76 @@
+# adding HTTP routers
+http:
+  routers:
+
+    custom-error-router:
+      entryPoints:
+        - web
+      middlewares:
+        - custom-error-page-demo
+      rule: Host(`demo.local`)
+      service: app1
+
+    secret-router:
+      entryPoints:
+        - web
+      middlewares:
+        - chain-demo
+      service: app1
+      rule: Host(`demo.local`) && Path(`/secret`)
+
+    sub-app-router:
+      entryPoints:
+        - web
+      middlewares:
+        - strip-prefix-demo
+      service: app1
+      rule: Host(`demo.local`) && PathPrefix(`/sub-app/`)
+      
+#          - in-flight-demo
+#          - rate-limit-demo
+
+  # services definition
+  services:
+    app1:
+      loadBalancer:
+        servers:
+          - url: http://localhost:3001
+
+  middlewares:
+    strip-prefix-demo:
+      test-stripprefix:
+      stripPrefix:
+        prefixes:
+          - "/sub-app"
+
+    custom-error-page-demo:
+      errors:
+        status:
+          - "404"
+        service: app1
+        query: "/not-found"
+
+    auth-demo:
+      basicAuth:
+        users:
+          - "test:$apr1$/Ab8eW30$j06BQUr8FTTDGoZZI7bzv/"
+
+    https-only-demo:
+      redirectScheme:
+        scheme: https
+
+    chain-demo:
+      chain:
+        middlewares:
+          - auth-demo
+#          - https-only-demo    
+
+    in-flight-demo:
+      inFlightReq:
+        amount: 10 # max number of concurent connections
+
+    rate-limit-demo:
+      rateLimit:
+        average: 100
+        burst: 50
+

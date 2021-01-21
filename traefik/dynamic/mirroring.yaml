@@ -1,0 +1,34 @@
+# adding HTTP routers
+http:
+  routers:
+    load-balancing-demo: # router name
+      entryPoints: # which entry points to listen
+        - web
+      service: mirrored-svc # service to route traffic to
+      rule: Host(`demo.local`) # routing rule
+
+  # services definition
+  services:
+    mirrored-svc:
+      mirroring: 
+        service: app1 # main service
+        mirrors:        # mirrors
+          - name: app2
+            percent: 100
+          - name: app3
+            percent: 30
+
+    app1:
+      loadBalancer:
+        servers:
+          - url: http://localhost:3001
+
+    app2:
+      loadBalancer:
+        servers:
+          - url: http://localhost:3002
+
+    app3:
+      loadBalancer:
+        servers:
+          - url: http://localhost:3003

@@ -47,13 +47,13 @@ services:
       - 3000
     environment:
       - GF_ROOT_URL=http://grafana.local
-#      - GF_LOG_LEVEL=error
       - GF_DASHBOARDS_MIN_REFRESH_INTERVAL=1s
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     volumes:
       - ./grafana/provisioning/:/etc/grafana/provisioning/
+      - ./grafana/plugins/:/var/lib/grafana/plugins/
     networks:
       - internal
     labels:

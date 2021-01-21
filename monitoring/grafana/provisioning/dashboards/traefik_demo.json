@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -71,6 +71,7 @@
           "expr": "rate(http_requests_total[1m])",
           "instant": false,
           "interval": "",
+          "intervalFactor": 1,
           "legendFormat": "{{app}}",
           "queryType": "randomWalk",
           "refId": "A"
@@ -80,7 +81,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Requests",
+      "title": "Requests per second during last 1m",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -118,6 +119,57 @@
       }
     },
     {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "175%",
+      "format": "short",
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      },
+      "id": 8,
+      "interval": null,
+      "legend": {
+        "percentage": true,
+        "show": true,
+        "values": false
+      },
+      "legendType": "On graph",
+      "links": [],
+      "nullPointMode": "connected",
+      "pieType": "donut",
+      "pluginVersion": "7.3.7",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "expr": "sum(rate(traefik_entrypoint_requests_total[1m])) by (code)",
+          "interval": "",
+          "legendFormat": "{{code}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "HTTP Response Codes",
+      "type": "grafana-piechart-panel",
+      "valueName": "current"
+    },
+    {
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
@@ -140,6 +192,70 @@
         "overrides": []
       },
       "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 16,
+        "y": 0
+      },
+      "id": 12,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.3.7",
+      "targets": [
+        {
+          "expr": "traefik_entrypoint_open_connections{entrypoint=\"web\"}",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Open connections on port 80",
+      "type": "gauge"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
         "h": 8,
         "w": 4,
         "x": 0,
@@ -150,7 +266,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -170,28 +286,36 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "App-1 requests per second",
+      "title": "App-1 RPS during last 1m",
       "type": "gauge"
     },
     {
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {},
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
               },
               {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
                 "color": "red",
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "reqps"
         },
         "overrides": []
       },
@@ -206,7 +330,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -226,28 +350,36 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "App-2 requests per second",
+      "title": "App-2 RPS during last 1m",
       "type": "gauge"
     },
     {
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {},
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
               },
               {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
                 "color": "red",
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "reqps"
         },
         "overrides": []
       },
@@ -262,7 +394,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -274,7 +406,9 @@
       "targets": [
         {
           "expr": "rate(http_requests_total{app=\"app3\"}[1m])",
+          "format": "time_series",
           "interval": "",
+          "intervalFactor": 1,
           "legendFormat": "",
           "queryType": "randomWalk",
           "refId": "A"
@@ -282,8 +416,59 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "App-3 requests per second",
+      "title": "App-3 RPS during last 1m",
       "type": "gauge"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "150%",
+      "format": "reqps",
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 12,
+        "y": 9
+      },
+      "id": 10,
+      "interval": null,
+      "legend": {
+        "percentage": true,
+        "show": true,
+        "values": false
+      },
+      "legendType": "On graph",
+      "links": [],
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.7",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total[1m])) by (app)",
+          "interval": "",
+          "legendFormat": "{{app}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Requests by app",
+      "type": "grafana-piechart-panel",
+      "valueName": "current"
     }
   ],
   "refresh": "3s",
@@ -315,5 +500,5 @@
   "timezone": "",
   "title": "Traefik Demo",
   "uid": "FkSUA0fGk",
-  "version": 1
+  "version": 4
 }

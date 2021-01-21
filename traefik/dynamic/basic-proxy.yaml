@@ -1,0 +1,15 @@
+# adding HTTP routers
+http:
+  routers:
+    basic-router: # router name
+      entryPoints: # which entry points to listen
+        - web
+      service: basic-service # service to route traffic to
+      rule: Host(`demo.local`) # routing rule
+
+  # services definition
+  services:
+    basic-service:
+      loadBalancer:
+        servers:
+        - url: https://httpbin.org

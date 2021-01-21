@@ -1,0 +1,29 @@
+# ports to listen for the incoming traffic
+entryPoints:
+  web:
+    address: ":80"
+  traefik: # special entry point for dashboard
+    address: ":9000"
+
+# enabling logging
+log: {}
+
+# enabling requests logging with default output set to "stdout"
+accessLog: {}
+
+# enabling dashboard
+api:
+  insecure: true # enabling insecure API attaches internal dashboard service to the "traefik" endpoint
+  dashboard: true
+
+# enabling prometheus metrics
+metrics:
+  prometheus: {}
+
+
+# enabling providers
+providers:
+  file:
+    filename: ./dynamic/mirroring.yaml
+    watch: true
+

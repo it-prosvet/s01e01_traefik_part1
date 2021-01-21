@@ -1,0 +1,43 @@
+# adding HTTP routers
+http:
+  routers:
+    demo1:
+      entryPoints:
+        - web
+      service: app1
+      rule: Host(`demo.local`)
+    demo2:
+      entryPoints:
+        - web2
+      service: app1
+      rule: Host(`demo.local`)
+    demo3:
+      entryPoints:
+        - web
+      service: app2
+      rule: Host(`demo.local`) && Path(`/app2`)
+    demo4:
+      entryPoints:
+        - web
+      service: app3
+      rule: PathPrefix(`/hello/`)
+    demo5:
+      entryPoints:
+        - web
+      service: app3
+      rule: Query(`foo=bar`)
+
+  # services definition
+  services:
+    app1:
+      loadBalancer:
+        servers:
+          - url: http://localhost:3001
+    app2:
+      loadBalancer:
+        servers:
+          - url: http://localhost:3002
+    app3:
+      loadBalancer:
+        servers:
+          - url: http://localhost:3003

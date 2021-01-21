@@ -1,0 +1,17 @@
+# adding HTTP routers
+http:
+  routers:
+    load-balancin-demo: # router name
+      entryPoints: # which entry points to listen
+        - web
+      service: load-balanced-svc # service to route traffic to
+      rule: Host(`demo.local`) # routing rule
+
+  # services definition
+  services:
+    load-balanced-svc:
+      loadBalancer:
+        servers:
+          - url: http://localhost:3001
+          - url: http://localhost:3002
+          - url: http://localhost:3003
