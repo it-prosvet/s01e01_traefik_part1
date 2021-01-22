@@ -1,0 +1,25 @@
+# listen on ports :80 and :9000
+entryPoints:
+  tcp-demo:
+    address: ":4000"
+  tcp-tls-demo:
+    address: ":4001"
+  traefik: # special entry point for traefik dashboard
+    address: ":9000"
+
+# enable logging
+log: {}
+
+# enable access log (output set to stdout by default)
+accessLog: {}
+
+# enable dashboard
+api:
+  insecure: true # insecure means that Traefik will serve it's dashboard via "traefik" endpoint
+  dashboard: true
+
+# enable file provider
+providers:
+  file:
+    filename: ./dynamic/tcp.yaml
+    watch: true # reloads configuration automatically when file changes

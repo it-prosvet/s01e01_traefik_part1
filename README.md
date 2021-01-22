@@ -5,7 +5,7 @@
 * monitoring - Prometheus and Grafana with Traefik dashboard
 * scripts - scripts used to run demos
 * traefik - configuration files for demos
-* webapp - sample web application
+* apps - sample applications
 
 ## Tools used in the video
 

@@ -1,0 +1,25 @@
+# adding HTTP routers
+tcp:
+  routers:
+    tcp-demo:
+      entryPoints:
+        - tcp-demo
+      service: tcp-svc
+      rule: HostSNI(`*`)
+      
+    tcp-tls-demo:
+      entryPoints:
+        - tcp-tls-demo
+      service: tcp-svc
+      # SNI is available only for TLS requests
+      # You can test connection using following command:
+      # echo -e "Hello\r\n" | openssl s_client -connect demo.local:4001 -servername demo.local
+      rule: HostSNI(`demo.local`) 
+      tls: {}
+
+  # services definition
+  services:
+    tcp-svc:
+      loadBalancer:
+        servers:
+          - address: 127.0.0.1:3030
