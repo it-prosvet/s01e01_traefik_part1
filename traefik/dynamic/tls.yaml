@@ -3,6 +3,8 @@ http:
     default-router:
       entryPoints:
         - web
+      middlewares:
+        - redirect-https
       rule: Host(`demo.local`)
       service: noop@internal
     secure-router:
@@ -11,12 +13,26 @@ http:
       rule: Host(`demo.local`)
       service: basic-service
       tls: {}
+    lets-encrypt-router:
+      entryPoints:
+        - web-secure
+      rule: Host(`cd2b5f3c0631.ngrok.io`)
+      service: basic-service
+      tls:
+        certResolver: lets-encrypt-demo
 
   services:
     basic-service:
       loadBalancer:
         servers:
           - url: http://localhost:3001
+
+  middlewares:
+    redirect-https:
+      redirectScheme:
+        scheme: https
+        permanent: true # return HTTP 301 instead of 302 code
+
 tls:
   certificates:
     - certFile: ./certs/custom.cert
