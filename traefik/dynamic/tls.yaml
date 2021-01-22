@@ -1,0 +1,23 @@
+http:
+  routers:
+    default-router:
+      entryPoints:
+        - web
+      rule: Host(`demo.local`)
+      service: noop@internal
+    secure-router:
+      entryPoints:
+        - web-secure
+      rule: Host(`demo.local`)
+      service: basic-service
+      tls: {}
+
+  services:
+    basic-service:
+      loadBalancer:
+        servers:
+          - url: http://localhost:3001
+tls:
+  certificates:
+    - certFile: ./certs/custom.cert
+      keyFile: ./certs/custom.key

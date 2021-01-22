@@ -4,7 +4,6 @@ const prom = require('prom-client')
 // Config
 const APP_NAME = process.env.APP_NAME || 'undefined'
 const PORT     = process.env.PORT     || 3000;
-const DELAY    = process.env.DELAY    || 0
 
 // Metrics
 const defaultLabels = { app: APP_NAME };
@@ -37,18 +36,15 @@ app.get('/', (_req, res) => {
   const time = new Date().toISOString()
   console.log(`[${time}] handling request from ${APP_NAME}`)
 
-  setTimeout(() => {
-    res.status(200).send(`${APP_NAME}`)
-  }, DELAY)
+  res.status(200).send(`${APP_NAME}`)
 })
 
-app.get('/hello', (_req, res) => {
+const sayHello = (_req, res) => {
   res.status(200).send(`hello from ${APP_NAME}`)
-})
+}
 
-app.get('/hello/*', (_req, res) => {
-  res.status(200).send(`hello from ${APP_NAME}`)
-})
+app.get('/hello', sayHello)
+app.get('/hello/*', sayHello)
 
 app.get('/not-found', (_req, res) => {
   const errorPage = `<html>Er.. Congratulations, you broke the Internet</html>`

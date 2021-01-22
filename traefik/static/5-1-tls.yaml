@@ -2,6 +2,8 @@
 entryPoints:
   web:
     address: ":80"
+  web-secure:
+    address: ":443"
   traefik: # special entry point for dashboard
     address: ":9000"
 
@@ -24,6 +26,6 @@ metrics:
 # enabling providers
 providers:
   file:
-    filename: ./dynamic/routers.yaml
+    filename: ./dynamic/tls.yaml
     watch: true
 
