@@ -1,17 +1,17 @@
-# точки входа
+# listen on ports :80 and :9000
 entryPoints:
   web:
     address: ":80"
-  traefik: # специальная точка входа для доступа к dashboard
+  traefik: # special entry point for traefik dashboard
     address: ":9000"
 
-# включаем логирование
+# enable logging
 log: {}
 
-# включаем логирование запросов с выводом в stdout
+# enable access log (output set to stdout by default)
 accessLog: {}
 
-# включаем dashboard
+# enable dashboard
 api:
-  insecure: true # insecure озанчает, что dashboard будет доступен через entry point "traefik"
+  insecure: true # insecure means that Traefik will serve it's dashboard via "traefik" endpoint
   dashboard: true

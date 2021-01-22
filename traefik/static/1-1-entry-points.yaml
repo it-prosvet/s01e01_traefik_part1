@@ -1,11 +1,11 @@
-# точки входа
+# listen on port :80
 entryPoints:
   web:
     address: ":80"
 
-# включаем логирование
+# enable logging
 log: {}
 
-# включаем логирование запросов с выводом в stdout
+# enable access log (output set to stdout by default)
 accessLog: {}
 

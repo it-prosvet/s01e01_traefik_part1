@@ -1,6 +1,21 @@
 # adding HTTP routers
 http:
   routers:
+    secret-router:
+      entryPoints:
+        - web
+      middlewares:
+        - auth-demo
+      service: api@internal
+      rule: Host(`demo.local`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+
+    sub-app-router:
+      entryPoints:
+        - web
+      middlewares:
+        - strip-prefix-demo
+      service: app1
+      rule: Host(`demo.local`) && PathPrefix(`/sub-app/`)
 
     custom-error-router:
       entryPoints:
@@ -10,25 +25,22 @@ http:
       rule: Host(`demo.local`)
       service: app1
 
-    secret-router:
+    rate-limited-router:
       entryPoints:
         - web
       middlewares:
         - chain-demo
+      rule: Host(`demo.local`) && Path(`/hello`)
       service: app1
-      rule: Host(`demo.local`) && Path(`/secret`)
 
-    sub-app-router:
+    retry-router:
       entryPoints:
         - web
       middlewares:
-        - strip-prefix-demo
+        - retry-demo
+      rule: Host(`demo.local`) && Path(`/failing`)
       service: app1
-      rule: Host(`demo.local`) && PathPrefix(`/sub-app/`)
       
-#          - in-flight-demo
-#          - rate-limit-demo
-
   # services definition
   services:
     app1:
@@ -50,27 +62,33 @@ http:
         service: app1
         query: "/not-found"
 
+    # password can be generated using following command:
+    # htpasswd -nb <user> <password>
     auth-demo:
       basicAuth:
         users:
-          - "test:$apr1$/Ab8eW30$j06BQUr8FTTDGoZZI7bzv/"
-
-    https-only-demo:
-      redirectScheme:
-        scheme: https
+          - "test:$apr1$BKw8oagc$4B1L1Nncg9DEnc5hgweTn/"  #test:test  
 
     chain-demo:
       chain:
         middlewares:
-          - auth-demo
-#          - https-only-demo    
+          - in-flight-demo
+          - rate-limit-demo
 
     in-flight-demo:
       inFlightReq:
-        amount: 10 # max number of concurent connections
+        amount: 5 # max number of concurent connections
 
     rate-limit-demo:
       rateLimit:
         average: 100
-        burst: 50
+        burst: 200
+
+    retry-demo:
+      retry:
+        attempts: 5
+
+    circuit-breaker-demo:
+      circuitBreaker:
+        expression: "ResponseCodeRatio(500, 600, 0, 600) > 0.25"
 

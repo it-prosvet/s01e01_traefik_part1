@@ -1,29 +1,27 @@
-# ports to listen for the incoming traffic
+# listen on ports :80 and :9000
 entryPoints:
   web:
     address: ":80"
-  traefik: # special entry point for dashboard
+  traefik: # special entry point for traefik dashboard
     address: ":9000"
 
-# enabling logging
+# enable logging
 log: {}
 
-# enabling requests logging with default output set to "stdout"
+# enable access log (output set to stdout by default)
 accessLog: {}
 
-# enabling dashboard
+# enable dashboard
 api:
-  insecure: true # enabling insecure API attaches internal dashboard service to the "traefik" endpoint
+  insecure: true # insecure means that Traefik will serve it's dashboard via "traefik" endpoint
   dashboard: true
 
 # enabling prometheus metrics
 metrics:
   prometheus: {}
 
-
-# enabling providers
+# enable file provider
 providers:
   file:
     filename: ./dynamic/sticky.yaml
-    watch: true
-
+    watch: true # reloads configuration automatically when file changes

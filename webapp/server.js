@@ -52,8 +52,13 @@ app.get('/not-found', (_req, res) => {
   res.status(200).send(errorPage)
 })
 
-app.get('/secret', (_req, res) => {
-  res.status(200).send("It's strictly confidential!")
+app.get('/failing', (_req, res) => {
+  if (Math.random(1) < 0.3) {
+    res.status(503).send("Oops!")
+  }
+  else {
+    res.status(200).send("Here we go!")
+  }
 })
 
 app.get('/health', (_req, res) => {
