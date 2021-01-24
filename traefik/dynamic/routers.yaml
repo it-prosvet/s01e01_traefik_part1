@@ -8,20 +8,15 @@ http:
       rule: Host(`demo.local`)
     demo2:
       entryPoints:
-        - web2
-      service: app1
-      rule: Host(`demo.local`)
-    demo3:
-      entryPoints:
         - web
       service: app2
-      rule: Host(`demo.local`) && Path(`/app2`)
-    demo4:
+      rule: Host(`demo.local`) && (Path(`/health`) || Path(`/hello`))
+    demo3:
       entryPoints:
         - web
       service: app3
       rule: PathPrefix(`/hello/`)
-    demo5:
+    demo4:
       entryPoints:
         - web
       service: app3

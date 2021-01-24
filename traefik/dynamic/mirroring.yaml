@@ -12,7 +12,7 @@ http:
     mirrored-svc:
       mirroring: 
         service: app1 # main service
-        mirrors:        # mirrors
+        mirrors:      # mirrors
           - name: app2
             percent: 100
           - name: app3

@@ -16,7 +16,7 @@ http:
           - url: http://localhost:3002
           - url: http://localhost:3003
         healthCheck:
-                  path: /health  #health check endpoint
-                  scheme: http
-                  interval: 1s
-                  timeout: 2s
+          path: /health  #health check endpoint
+          scheme: http
+          interval: 1s
+          timeout: 2s

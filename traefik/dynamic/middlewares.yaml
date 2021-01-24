@@ -32,14 +32,6 @@ http:
         - chain-demo
       rule: Host(`demo.local`) && Path(`/hello`)
       service: app1
-
-    retry-router:
-      entryPoints:
-        - web
-      middlewares:
-        - retry-demo
-      rule: Host(`demo.local`) && Path(`/failing`)
-      service: app1
       
   # services definition
   services:
@@ -48,7 +40,14 @@ http:
         servers:
           - url: http://localhost:3001
 
-  middlewares:
+  middlewares:          
+    # password can be generated using following command:
+    # htpasswd -nb <user> <password>
+    auth-demo:
+      basicAuth:
+        users:
+          - "test:$apr1$BKw8oagc$4B1L1Nncg9DEnc5hgweTn/"  #test:test  
+
     strip-prefix-demo:
       test-stripprefix:
       stripPrefix:
@@ -61,13 +60,6 @@ http:
           - "404"
         service: app1
         query: "/not-found"
-
-    # password can be generated using following command:
-    # htpasswd -nb <user> <password>
-    auth-demo:
-      basicAuth:
-        users:
-          - "test:$apr1$BKw8oagc$4B1L1Nncg9DEnc5hgweTn/"  #test:test  
 
     chain-demo:
       chain:
@@ -84,11 +76,4 @@ http:
         average: 100
         burst: 200
 
-    retry-demo:
-      retry:
-        attempts: 5
-
-    circuit-breaker-demo:
-      circuitBreaker:
-        expression: "ResponseCodeRatio(500, 600, 0, 600) > 0.25"
 

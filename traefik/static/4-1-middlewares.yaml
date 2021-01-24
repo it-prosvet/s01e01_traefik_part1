@@ -2,7 +2,7 @@
 entryPoints:
   web:
     address: ":80"
-  traefik:
+  traefik: # special entry point for traefik dashboard
     address: ":9000"
   
 # enable logging

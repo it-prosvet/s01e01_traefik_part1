@@ -5,7 +5,7 @@ http:
       entryPoints: # which entry points to listen
         - web
       service: basic-service # service to route traffic to
-      rule: Host(`demo.local`) # routing rule
+      rule: Host(`localhost`) # routing rule
 
   # services definition
   services:

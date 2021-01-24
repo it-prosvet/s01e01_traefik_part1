@@ -36,7 +36,7 @@ app.get('/', (_req, res) => {
   const time = new Date().toISOString()
   console.log(`[${time}] handling request from ${APP_NAME}`)
 
-  res.status(200).send(`${APP_NAME}`)
+  res.status(200).send(`${APP_NAME}\n`)
 })
 
 const sayHello = (_req, res) => {

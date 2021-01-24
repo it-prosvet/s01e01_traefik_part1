@@ -2,6 +2,8 @@
 entryPoints:
   web:
     address: ":80"
+  web-secure:
+    address: ":443"
   traefik: # special entry point for traefik dashboard
     address: ":9000"
 

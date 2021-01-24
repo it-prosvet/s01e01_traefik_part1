@@ -11,7 +11,7 @@ tcp:
       entryPoints:
         - tcp-tls-demo
       service: tcp-svc
-      # SNI is available only for TLS requests
+      # SNI is available for TLS requests only
       # You can test connection using following command:
       # echo -e "Hello\r\n" | openssl s_client -connect demo.local:4001 -servername demo.local
       rule: HostSNI(`demo.local`) 
