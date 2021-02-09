@@ -20,4 +20,5 @@ api:
 providers:
   file:
     filename: ./dynamic/basic-proxy.yaml
+#   directory: /some/directory 
     watch: true # reloads configuration automatically when file changes
