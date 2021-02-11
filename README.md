@@ -20,7 +20,7 @@
 ## Getting started
 
   Prerequisites
-* [Docker](https://docs.docker.com/get-docker/
+* [Docker](https://docs.docker.com/get-docker/)
 * [docker-compose](https://docs.docker.com/compose/install/)
 * [Traefik](https://doc.traefik.io/traefik/getting-started/install-traefik/)
 
