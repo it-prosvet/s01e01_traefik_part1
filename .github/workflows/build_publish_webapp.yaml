@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./apps/webapp
-          file: ./Dockerfile
+          file: ./apps/webapp/Dockerfile
           push: true
           tags: |
             ghcr.io/it-prosvet/s01e01_traefik_webapp:latest
