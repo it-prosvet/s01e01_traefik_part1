@@ -30,7 +30,7 @@ jobs:
         uses: dorny/paths-filter@v2
         id: filter
         with:
-          base: production
+          base: main
           filters: |
             webapp:
               - 'apps/webapp/**'
