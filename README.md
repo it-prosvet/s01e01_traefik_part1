@@ -43,11 +43,11 @@ cd s01e01_traefik_part1
 # start monitoring services
 ./scripts/start_monitoring
 
-# you can stop stop monitoring via following script
+# you can stop monitoring using following script
 # please note that previous data will be lost
 #./scripts/stop_monitoring
 ```
-You can access grafana via http://grafana.local:8081
+You can access grafana via http://grafana.local:8080
 
 5. Run the demo web app
 
