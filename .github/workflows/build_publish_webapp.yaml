@@ -1,4 +1,4 @@
-name: build and publish s01e01_traefik_webapp container
+name: build and publish webapp container
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .apps/webapp
+          context: ./apps/webapp
           file: ./Dockerfile
           push: true
           tags: |
