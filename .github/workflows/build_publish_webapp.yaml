@@ -3,7 +3,7 @@ name: build and publish webapp container
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build_and_publish:
