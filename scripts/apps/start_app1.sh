@@ -1,8 +1,5 @@
 #/bin/sh
 
-SCRIPT_PATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-cd $SCRIPT_PATH/../../
-
 clear
 
-APP_NAME=app1 PORT=3001 node ./apps/webapp/server.js
+docker run -p 3001:3000 -e APP_NAME=app1 --rm --init ghcr.io/it-prosvet/s01e01_traefik_webapp:latest
