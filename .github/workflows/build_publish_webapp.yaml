@@ -1,4 +1,4 @@
-name: webapp
+name: build and publish s01e01_traefik_webapp container
 
 on:
   push:
