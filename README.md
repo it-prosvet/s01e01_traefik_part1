@@ -20,9 +20,9 @@
 ## Getting started
 
   Prerequisites
-* Docker
-* docker-compose
-* node.js
+* [Docker](https://docs.docker.com/get-docker/
+* [docker-compose](https://docs.docker.com/compose/install/)
+* [Traefik](https://doc.traefik.io/traefik/getting-started/install-traefik/)
 
 1. Clone this repository
 ```
@@ -43,9 +43,9 @@ cd s01e01_traefik_part1
 # start monitoring services
 ./scripts/start_monitoring
 
-# stop stop monitoring services
-# previous data will be lost
-./scripts/stop_monitoring
+# you can stop stop monitoring via following script
+# please note that previous data will be lost
+#./scripts/stop_monitoring
 ```
 You can access grafana via http://grafana.local:8081
 
