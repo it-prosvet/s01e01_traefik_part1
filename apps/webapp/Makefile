@@ -1,2 +1,2 @@
 build:
-	docker build -t s01e01_traefik_webapp .
+	docker build -t traefik_tutorial_webapp .
