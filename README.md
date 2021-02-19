@@ -31,11 +31,13 @@ gh repo clone it-prosvet/s01e01_traefik_part1
 2. Setup hosts (e.g. edit /etc/hosts file)
 ```
 127.0.0.1 grafana.local
+::1       grafana.local
 127.0.0.1 demo.local
+::1       demo.local
 ```
 3. go the the cloned directory
 ```
-cd s01e01_traefik_part1
+cd traefik_tutorial_part1
 ```
 4. start Prometheus and Grafana
   
@@ -44,7 +46,7 @@ cd s01e01_traefik_part1
 ./scripts/start_monitoring
 
 # you can stop monitoring using following script
-# please note that previous data will be lost
+# please note that previous data will be lost!
 #./scripts/stop_monitoring
 ```
 You can access grafana via http://grafana.local:8080
@@ -55,13 +57,13 @@ You can access grafana via http://grafana.local:8080
 # start app1 on port :3001
 ./scripts/start_app1.sh
 # start app2 on port :3002
-./scripts/start_app1.sh
+./scripts/start_app2.sh
 # start app3 on port :3003
-./scripts/start_app1.sh
+./scripts/start_app3.sh
 ```
 
 6. Run some demos
 ```bash
-./scripts/1-1-entry-points.sh
+./scripts/demos/2-2-load-balancing.sh
 ```
   
