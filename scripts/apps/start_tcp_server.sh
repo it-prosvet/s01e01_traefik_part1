@@ -1,6 +1,5 @@
 #/bin/sh
 
-SCRIPT_PATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-cd $SCRIPT_PATH/../../
+clear
 
-PORT=3030 node ./apps/tcpserver/server.js
+docker run -p 3030:3030 -e PORT=3030 --rm --init itprosvet/traefik_tutorial_tcpserver:latest

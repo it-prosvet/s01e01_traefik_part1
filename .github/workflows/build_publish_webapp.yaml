@@ -1,4 +1,4 @@
-name: build and publish webapp container
+name: build and publish containers
 
 on:
   push:
@@ -33,8 +33,10 @@ jobs:
           filters: |
             webapp:
               - 'apps/webapp/**'
+            tcpserver:
+              - 'apps/tcpserver/**'
       -
-        name: Build and push
+        name: Build and push webapp
         uses: docker/build-push-action@v2
         if: steps.filter.outputs.webapp == 'true'
         with:
@@ -43,3 +45,13 @@ jobs:
           push: true
           tags: |
             itprosvet/traefik_tutorial_webapp:latest
+      -
+        name: Build and push tcpserver
+        uses: docker/build-push-action@v2
+        if: steps.filter.outputs.tcpserver == 'true'
+        with:
+          context: ./apps/tcpserver
+          file: ./apps/tcpserver/Dockerfile
+          push: true
+          tags: |
+            itprosvet/traefik_tutorial_tcpserver:latest            
