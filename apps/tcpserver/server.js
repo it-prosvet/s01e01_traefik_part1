@@ -16,4 +16,4 @@ var server = net.createServer((socket) => {
 
 console.log(`Starting server on :${PORT}`)
 
-server.listen(PORT, '127.0.0.1')
+server.listen(PORT, '0.0.0.0')
