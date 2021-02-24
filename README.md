@@ -2,10 +2,10 @@
 
 ## Repository structure
 
-* monitoring - Prometheus and Grafana with Traefik dashboard
-* scripts - scripts used to run demos
-* traefik - configuration files for demos
-* apps - sample applications
+* monitoring - Prometheus and Grafana configs
+* scripts - scripts used to run demo apps/Traefik
+* traefik - configuration files for Traefik
+* apps - sample applications (Express.js web app + TCP server)
 
 ## Tools used in the video
 
@@ -13,57 +13,49 @@
 * [Prometheus](https://prometheus.io/)
 * [Insomnia](https://insomnia.rest/)
 * [Hey](https://github.com/rakyll/hey)
-* [ngrok](https://ngrok.com/)
 * [openssl](https://www.openssl.org/)
 * [curl](https://curl.se/)
 
 ## Getting started
 
-  Prerequisites
+### Install prerequisites
 * [Docker](https://docs.docker.com/get-docker/)
 * [docker-compose](https://docs.docker.com/compose/install/)
 * [Traefik](https://doc.traefik.io/traefik/getting-started/install-traefik/)
 
-1. Clone this repository
-```
+### Clone this repository
+```bash
 gh repo clone it-prosvet/s01e01_traefik_part1
+cd traefik_tutorial_part1
 ```
-2. Setup hosts (e.g. edit /etc/hosts file)
+### Setup hosts (e.g. edit /etc/hosts file)
 ```
 127.0.0.1 grafana.local
 ::1       grafana.local
 127.0.0.1 demo.local
 ::1       demo.local
 ```
-3. go the the cloned directory
-```
-cd traefik_tutorial_part1
-```
-4. start Prometheus and Grafana
-  
-```bash
-# start monitoring services
-./scripts/start_monitoring
-
-# you can stop monitoring using following script
-# please note that previous data will be lost!
-#./scripts/stop_monitoring
-```
-You can access grafana via http://grafana.local:8080
-
-5. Run the demo web app
+### Run apps/demos using scripts
 
 ```bash
+# Start monitoring services (Grafana + Prometheus)
+# You can access grafana via http://grafana.local:8080
+./scripts/apps/start_monitoring
+
+# Stop monitoring services 
+# Please note that previous data will be lost!
+./scripts/apps/stop_monitoring
+
 # start app1 on port :3001
-./scripts/start_app1.sh
+./scripts/apps/start_app1.sh
 # start app2 on port :3002
-./scripts/start_app2.sh
+./scripts/apps/start_app2.sh
 # start app3 on port :3003
-./scripts/start_app3.sh
-```
+./scripts/apps/start_app3.sh
+# start TCP server on port :3030
+./scripts/apps/start_tcp_server.sh
 
-6. Run some demos
-```bash
-./scripts/demos/2-2-load-balancing.sh
+# Start some demo
+# Note that some demos will stat necessary apps automatically. Please follow the video tutorial.
+./scripts/demos/<demo_name>.sh
 ```
-  
