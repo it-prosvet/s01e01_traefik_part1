@@ -16,7 +16,7 @@ http:
     lets-encrypt-router:
       entryPoints:
         - web-secure
-      rule: Host(`cd2b5f3c0631.ngrok.io`)
+      rule: Host(`traefik-tutorial.ddns.net`)
       service: basic-service
       tls:
         certResolver: lets-encrypt-demo

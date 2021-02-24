@@ -24,7 +24,7 @@ certificatesResolvers:
       email: your-email@yourdomain.com
       storage: acme.json
       httpChallenge:
-        entryPoint: web-secure
+        entryPoint: web
 
 # enable file provider
 providers:
